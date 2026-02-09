@@ -3,6 +3,7 @@ import http from 'node:http'
 import path from 'node:path'
 import fs from 'node:fs/promises'
 import { getContentType } from './utils/getContentType.js'
+import { sendResponse  } from './utils/sendResponse.js'
 
 // 2. define yung PORT
 const PORT = 8000

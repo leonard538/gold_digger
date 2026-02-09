@@ -34,7 +34,7 @@ form.addEventListener('submit', async (e) => {
 
     try {
         // Send the investment data to the fetched API
-        const res = await fetch('./api/gold-prices', {
+        const res = await fetch('./api', {
             method: "POST", 
             headers: {
                 "Content-Type" : "application/json"
