@@ -1,45 +1,45 @@
-// 1. import necessary libraries and basta
+// import necessary libraries and basta
 import http from 'node:http'
-import path from 'node:path'
-import fs from 'node:fs/promises'
-import { getContentType } from './utils/getContentType.js'
-import { sendResponse  } from './utils/sendResponse.js'
+import { handleGet, handlePost } from './handlers/routeHandlers.js'
+import { goldPriceGenerator } from './utils/goldPriceGenerator.js'
+import { serveStatic } from './utils/serveStatic.js'
 
-// 2. define yung PORT
+// define yung PORT
 const PORT = 8000
 
-// 3. define directory
+// define directory
 const __dirname = import.meta.dirname
 
-// 4. create the server
+// generate gold price 
+const goldPrice = new goldPriceGenerator()
+let currentPrice = goldPrice.nextPrice()
+
+setInterval(() => {
+    currentPrice = goldPrice.nextPrice()
+}, 2000);
+
+// create the server
 const server = http.createServer( async (req, res) => {
-    // 4.1 define directory to index.html
-    const publicDir = path.join(__dirname, 'public')
-    const filepath = path.join(publicDir, 
-        req.url === '/' ? 'index.html' : req.url        
-    )
-    console.log(req.url)
-    // get the extension name of the directory
-    const ext = path.extname(filepath)
-    const contentType = getContentType(ext)
-    
-    try {
-        // 4.2 read the content from the directory/file
-        const content = await fs.readFile(filepath) 
-
-        // 5. define content-type, status code, and payload
-        res.statusCode = 200
-        res.setHeader('Content-Type', contentType)
-        res.end(content)
-
-    } catch(err) {
-        console.log(`File not found: ${req.url}`)
-        res.statusCode = 404
-        res.end('Not found')
+    if(req.url === '/api') {
+        if(req.method === 'GET') {
+            // FIX: Pass currentPrice to handleGet so it can return { goldPrice: currentPrice }
+            // return await handleGet(res, currentPrice)
+            return await handleGet(res, currentPrice)
+        } else if(req.method === 'POST') {
+            handlePost(req, res, currentPrice)
+        }
+    } else if(!req.url.startsWith('/api')) {
+        return await serveStatic(req, res, __dirname)
     }
+
+    // } catch(err) {
+    //     console.log(`File not found: ${req.url}`)
+    //     res.statusCode = 404
+    //     res.end('Not found')
+    // }
     
 })
 
 
-// 6. build the server to the network
+// build the server on the network
 server.listen(PORT, () => { console.log(`Server running at: http://localhost:${PORT}`)})

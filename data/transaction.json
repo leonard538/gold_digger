@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "February 9, 2026 at 08:26 PM",
+    "amountPaid": "100",
+    "pricePerOz": "3509.25",
+    "goldSold": "0.03"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:27 PM",
+    "amountPaid": "1200",
+    "pricePerOz": "3503.69",
+    "goldSold": "0.34"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:32 PM",
+    "amountPaid": "100",
+    "pricePerOz": "3506.59",
+    "goldSold": "0.03"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:32 PM",
+    "amountPaid": "100",
+    "pricePerOz": "3502.44",
+    "goldSold": "0.03"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:37 PM",
+    "amountPaid": "2450",
+    "pricePerOz": "3503.31",
+    "goldSold": "0.70"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:40 PM",
+    "amountPaid": "2500",
+    "pricePerOz": "3510.91",
+    "goldSold": "0.71"
+  },
+  {
+    "timestamp": "February 9, 2026 at 08:40 PM",
+    "amountPaid": "5000",
+    "pricePerOz": "3506.67",
+    "goldSold": "1.43"
+  }
+]

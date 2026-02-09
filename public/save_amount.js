@@ -1,12 +1,18 @@
 const form = document.getElementById('invest-form')
+// FIX: 'invesment-summary' is misspelled - should be 'investment-summary' (missing 't')
+const invest_summary = document.getElementById('investment-summary')
+// FIX: 'dialog' is used on line 47 and 62 but never defined.
+// Add: const dialog = document.querySelector('dialog')
+const dialog = document.querySelector('dialog')
+const closebtn = document.getElementById('close-dialog')
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
 
     const invest_amount = document.getElementById('investment-amount').value
     const invest_msg = document.getElementById('investment-message')
-    const current_date = new Date() // get current datetime to store in transaction file
-    
+    const current_date = new Date() // get current datetime to store in transaction fil
+
     // format date from date object to readable string
     const options = {
         timezone: 'Asia/Manila', 
@@ -27,9 +33,7 @@ form.addEventListener('submit', async (e) => {
 
     const formData = {
         timestamp: readableDate,
-        amountPaid: invest_amount,
-        pricePerOz: '', // the gold price 
-        goldSold: '' // the amount returned in ozGoldSold
+        amountPaid: invest_amount
     }
 
     try {
@@ -41,13 +45,23 @@ form.addEventListener('submit', async (e) => {
             },
             body: JSON.stringify(formData)
         })
+        const data = await res.json()
+        invest_summary.textContent = `
+            You just bought ${data.goldSold} ounces (ozt) for ₱${data.amountPaid}. \n You will receive documentation shortly.
+        `
+        dialog.showModal()
 
         if(res.ok) {
             form.reset()
         } else {
             console.error(res.statusText)
         }
+
     } catch(err) {
         console.log('Error:', err)
     }
+})
+
+closebtn.addEventListener("click", () => {
+    dialog.close()
 })
