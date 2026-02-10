@@ -1,6 +1,7 @@
 # GoldDigger 💰
 
-A prototype web application for gold investing. This project simulates a real-time gold price tracker where users can invest in gold and track their transactions.
+A prototype web application for gold investing. This project simulates a real-time gold price tracker where users can invest in gold and track their transactions.  
+[deployed app is not available yet]
 
 ## Overview
 
